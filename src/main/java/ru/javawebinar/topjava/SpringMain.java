@@ -12,11 +12,12 @@ import java.util.Arrays;
  */
 public class SpringMain {
     public static void main(String[] args) {
-        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-        AdminUserRestController adminController = appCtx.getBean(AdminUserRestController.class);
-        adminController.delete(7);
-        adminController.getByMail("dummy");
-        appCtx.close();
+        // java 7 Automatic resource management
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+            System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
+            AdminUserRestController adminController = appCtx.getBean(AdminUserRestController.class);
+            adminController.delete(7);
+            adminController.getByMail("dummy");
+        }
     }
 }
