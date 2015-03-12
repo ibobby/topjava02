@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void get(int id) throws NotFoundException {
+    public User get(int id) throws NotFoundException {
 
     }
 
     @Override
-    public void getByEmail(String email) throws NotFoundException {
+    public User getByEmail(String email) throws NotFoundException {
 
     }
 
