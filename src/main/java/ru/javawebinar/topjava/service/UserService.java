@@ -14,9 +14,9 @@ public interface UserService {
 
     public void delete(int id) throws NotFoundException;
 
-    public void get(int id) throws NotFoundException;
+    public User get(int id) throws NotFoundException;
 
-    public void getByEmail(String email) throws NotFoundException;
+    public User getByEmail(String email) throws NotFoundException;
 
     public List<User> getAll();
 

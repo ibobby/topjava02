@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by bobby on 12.03.2015.
  */
-public class UsererviceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         return null;
