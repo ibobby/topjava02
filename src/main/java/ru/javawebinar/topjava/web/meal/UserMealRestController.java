@@ -43,6 +43,7 @@ public class UserMealRestController {
 
     public void update(String userId, UserMeal userMeal) {
         LOG.info("update meal " + userMeal + " of " + userId);
+        service.update(userId, userMeal);
     }
 
 }

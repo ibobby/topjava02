@@ -24,7 +24,7 @@ public class SpringMain {
             UserMealRestController userMealController = appCtx.getBean(UserMealRestController.class);
             userMealController.create("45", new UserMeal());
             userMealController.delete("5", "555");
-            userMealController.getAll("5");
+            userMealController.get("5", "555");
         }
     }
 }

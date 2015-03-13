@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
-
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +42,7 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public List<UserMeal> getAll(String userId) {
-        LOG.info("getAll meal of" + userId);
+        LOG.info("getAll meal of " + userId);
         return Collections.emptyList();
     }
 }
