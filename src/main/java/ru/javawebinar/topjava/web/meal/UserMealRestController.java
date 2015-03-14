@@ -2,12 +2,11 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.service.UserMealServiceImpl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,50 +15,35 @@ import java.util.List;
  */
 @Controller
 public class UserMealRestController {
+
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealRestController.class);
 
     @Autowired
-    private UserMealService service;
+    private UserMealServiceImpl service;
 
-    public UserMeal get(int id) {
-        int userId = LoggedUser.id();
-        LOG.info("get meal {} for User {}", id, userId);
-        return service.get(id, userId);
-    }
-
-    public void delete(int id) {
-        int userId = LoggedUser.id();
-        LOG.info("delete meal {} for User {}", id, userId);
-        service.delete(id, userId);
-    }
-
-    public List<UserMeal> getAll() {
-        int userId = LoggedUser.id();
-        LOG.info("getAll for User {}", userId);
+    public List<UserMeal> getAll(String userId) {
+        LOG.info("getAll meal " + " of user" + userId);
         return service.getAll(userId);
     }
 
-    public void deleteAll() {
-        int userId = LoggedUser.id();
-        LOG.info("deleteAll for User {}", userId);
-        service.deleteAll(userId);
+    public UserMeal get(String userId, String id) {
+        LOG.info("get meal " + id + " of " + userId);
+        return service.get(userId, id);
     }
 
-    public void update(UserMeal meal) {
-        int userId = LoggedUser.id();
-        LOG.info("update {} for User {}", meal, userId);
-        service.update(meal, userId);
+    public UserMeal create(String userId, UserMeal userMeal) {
+        LOG.info("create meal " + userMeal + " of " + userId);
+        return service.save(userId, userMeal);
     }
 
-    public UserMeal create(UserMeal meal) {
-        int userId = LoggedUser.id();
-        LOG.info("create {} for User {}", meal, userId);
-        return service.save(meal, userId);
+    public void delete(String userId, String id) {
+        LOG.info("delete meal" + id + " of " + userId);
+        service.delete(userId, id);
     }
 
-    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        int userId = LoggedUser.id();
-        LOG.info("getBetween {} and {} for User {}", startDate, endDate, userId);
-        return service.getBetween(startDate, endDate, userId);
+    public void update(String userId, UserMeal userMeal) {
+        LOG.info("update meal " + userMeal + " of " + userId);
+        service.update(userId, userMeal);
     }
+
 }

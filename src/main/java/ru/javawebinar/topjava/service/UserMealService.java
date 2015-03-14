@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.service;
 
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,17 +12,19 @@ import java.util.List;
  * 09.03.2015.
  */
 public interface UserMealService {
-    UserMeal get(int id, int userId);
 
-    void delete(int id, int userId);
+    public UserMeal save(String userId, UserMeal userMeal);
 
-    List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
+    public void delete(String userId, String id) throws NotFoundException;
 
-    List<UserMeal> getAll(int userId);
+    public List<UserMeal> getAll(String userId);
 
-    void deleteAll(int userId);
+    public UserMeal get(String userId, String id) throws NotFoundException;
 
-    UserMeal update(UserMeal meal, int userId);
+    public List<UserMeal> getFromTo(Date from, Date to);
 
-    UserMeal save(UserMeal meal, int userId);
+    public void update(String userId, UserMeal userMeal) throws NotFoundException;
+
+
+
 }

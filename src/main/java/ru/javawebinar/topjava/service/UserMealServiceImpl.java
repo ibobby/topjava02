@@ -1,57 +1,52 @@
 package ru.javawebinar.topjava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 /**
  * GKislin
  * 06.03.2015.
  */
-@Service
+@Repository
 public class UserMealServiceImpl implements UserMealService {
 
     @Autowired
     private UserMealRepository repository;
 
     @Override
-    public UserMeal get(int id, int userId) {
-        return ExceptionUtil.check(repository.get(id, userId), id);
+    public UserMeal save(String userId, UserMeal userMeal) {
+        return ExceptionUtil.check(repository.save(userId, userMeal), userId);
     }
 
     @Override
-    public void delete(int id, int userId) {
-        ExceptionUtil.check(repository.delete(id, userId), id);
+    public void delete(String userId, String id) throws NotFoundException {
+        ExceptionUtil.check(repository.delete(userId, id), id);
     }
 
     @Override
-    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return repository.getBetween(startDate, endDate.plus(1, ChronoUnit.DAYS), userId);
+    public List<UserMeal> getAll(String userId) {
+        return ExceptionUtil.check(repository.getAll(userId), userId);
     }
 
     @Override
-    public List<UserMeal> getAll(int userId) {
-        return repository.getAll(userId);
+    public UserMeal get(String userId, String id) throws NotFoundException {
+        return ExceptionUtil.check(repository.get(userId, id), id);
     }
 
     @Override
-    public void deleteAll(int userId) {
-        repository.deleteAll(userId);
+    public List<UserMeal> getFromTo(Date from, Date to) {
+        return repository.getFromTo(from, to);
     }
 
     @Override
-    public UserMeal update(UserMeal meal, int userId) {
-        return ExceptionUtil.check(repository.save(meal, userId), meal.getId());
-    }
-
-    @Override
-    public UserMeal save(UserMeal meal, int userId) {
-        return repository.save(meal, userId);
+    public void update(String userId, UserMeal userMeal) throws NotFoundException {
+        ExceptionUtil.check(repository.save(userId, userMeal), userId);
     }
 }

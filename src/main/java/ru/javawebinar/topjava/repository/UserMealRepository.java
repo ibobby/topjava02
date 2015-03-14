@@ -2,7 +2,7 @@ package ru.javawebinar.topjava.repository;
 
 import ru.javawebinar.topjava.model.UserMeal;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,20 +11,15 @@ import java.util.List;
  */
 public interface UserMealRepository {
 
-    // UserMeal.user = null
-    UserMeal save(UserMeal UserMeal, int userId);
+    UserMeal save(String userId, UserMeal userMeal);
 
-    // false if not found
-    boolean delete(int id, int userId);
+    boolean delete(String useId, String id);
 
-    // null if not found
-    UserMeal get(int id, int userId);
+    UserMeal get(String userId, String id);
 
-    // ORDERED DATE, TIME
-    List<UserMeal> getAll(int userId);
+    List<UserMeal> getFromTo(Date from, Date to);
 
-    void deleteAll(int userId);
+    List<UserMeal> getAll(String userId);
 
-    List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
 }
