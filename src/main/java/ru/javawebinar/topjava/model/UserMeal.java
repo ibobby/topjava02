@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.model;
 
+import ru.javawebinar.topjava.util.TimeUtil;
+
 import java.time.LocalDateTime;
 
 /**
@@ -24,6 +26,6 @@ public class UserMeal extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Meal(" + id + ", " + dateTime + ", " + description + '\'' + "calories: " + calories +')';
+        return "Meal(" + id + ", " + TimeUtil.toString(dateTime) + ", " + description + '\'' + "calories: " + calories +')';
     }
 }
