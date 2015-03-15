@@ -11,15 +11,15 @@ import java.util.List;
  */
 public interface UserMealRepository {
 
-    UserMeal save(String userId, UserMeal userMeal);
+    UserMeal save(int userId, UserMeal userMeal);
 
-    boolean delete(String useId, String id);
+    boolean delete(int useId, int id);
 
-    UserMeal get(String userId, String id);
+    UserMeal get(int userId, int id);
 
     List<UserMeal> getFromTo(Date from, Date to);
 
-    List<UserMeal> getAll(String userId);
+    List<UserMeal> getAll(int userId);
 
 
 }
