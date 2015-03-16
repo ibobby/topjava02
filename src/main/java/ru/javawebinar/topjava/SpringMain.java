@@ -18,5 +18,7 @@ public class SpringMain {
             UserMealRestController adminController = appCtx.getBean(UserMealRestController.class);
             adminController.delete(7);
         }
+
+        //test from task3
     }
 }
