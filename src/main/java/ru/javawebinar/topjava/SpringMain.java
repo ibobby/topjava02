@@ -1,10 +1,10 @@
 package ru.javawebinar.topjava;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.web.meal.UserMealRestController;
+        import org.springframework.context.ConfigurableApplicationContext;
+        import org.springframework.context.support.ClassPathXmlApplicationContext;
+        import ru.javawebinar.topjava.web.meal.UserMealRestController;
 
-import java.util.Arrays;
+        import java.util.Arrays;
 
 /**
  * User: gkislin
