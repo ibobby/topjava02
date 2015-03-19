@@ -18,7 +18,6 @@ public class MealTestData {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserTestData.class);
 
     public static final TestMeal MEAL1 = new TestMeal(BaseEntity.START_SEQ, LocalDateTime.parse("2015-03-19"), "омар", 1000);
-    //public static final User ADMIN = new TestMeal(BaseEntity.START_SEQ + 1, "Admin", "admin@gmail.com", "admin", true, Role.ROLE_ADMIN);
 
     public static class TestMeal extends UserMeal {
 
