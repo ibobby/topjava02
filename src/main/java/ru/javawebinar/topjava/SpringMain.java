@@ -1,10 +1,10 @@
 package ru.javawebinar.topjava;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.web.meal.UserMealRestController;
+        import org.springframework.context.ConfigurableApplicationContext;
+        import org.springframework.context.support.ClassPathXmlApplicationContext;
+        import ru.javawebinar.topjava.web.meal.UserMealRestController;
 
-import java.util.Arrays;
+        import java.util.Arrays;
 
 /**
  * User: gkislin
@@ -18,5 +18,7 @@ public class SpringMain {
             UserMealRestController adminController = appCtx.getBean(UserMealRestController.class);
             adminController.delete(7);
         }
+
+        //test from task3
     }
 }
