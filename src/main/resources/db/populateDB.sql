@@ -11,3 +11,7 @@ VALUES ('Admin', 'admin@gmail.com', 'admin');
 
 INSERT INTO user_roles (role, user_id) VALUES ('ROLE_USER', 100000);
 INSERT INTO user_roles (role, user_id) VALUES ('ROLE_ADMIN', 100001);
+
+--meal
+INSERT INTO meals (description, calories, user_id) VALUES ('омар', 1000, 100000);
+INSERT INTO meals (description, calories, user_id) VALUES ('анчоус', 500, 100001);
