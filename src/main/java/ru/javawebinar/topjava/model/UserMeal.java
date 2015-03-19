@@ -4,7 +4,6 @@ import ru.javawebinar.topjava.util.TimeUtil;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * GKislin
@@ -33,8 +32,10 @@ public class UserMeal extends BaseEntity {
         this.calories = calories;
     }
 
-    public Date getDateTime() {
-        return Timestamp.valueOf(dateTime);
+    public LocalDateTime getDateTime() {
+        Timestamp ts = Timestamp.valueOf(dateTime);
+        LocalDateTime ldt = ts.toLocalDateTime();
+        return ldt;
     }
 
     public String getDescription() {
@@ -66,7 +67,7 @@ public class UserMeal extends BaseEntity {
         return "Meal(" + id + ", " + TimeUtil.toString(dateTime) + ", '" + description + "', calories:" + calories + ')';
     }
 
-    public void setUser(User user) {
+    public void setUser() {
         this.user = user;
     }
 
