@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
@@ -69,21 +68,25 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     public UserMeal get(int id, int userId) {
         return jdbcTemplate.queryForObject(
                 "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=? AND id=?",
-                ROW_MAPPER, id);
+                ROW_MAPPER, userId, id);
     }
 
     @Override
     public List<UserMeal> getAll(int userId) {
-        return null;
+        return jdbcTemplate.query(
+                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=?",
+                ROW_MAPPER, userId);
     }
 
     @Override
     public void deleteAll(int userId) {
-
+        jdbcTemplate.update("DELETE FROM meals WHERE user_id=?", userId);
     }
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return null;
+        return jdbcTemplate.query(
+                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=? AND dateTime BETWEEN ? AND ?",
+                ROW_MAPPER, userId, startDate, endDate);
     }
 }
