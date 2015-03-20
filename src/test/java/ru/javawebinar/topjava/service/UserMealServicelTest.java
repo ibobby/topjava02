@@ -6,7 +6,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.javawebinar.topjava.MealTestData;
+import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.DbPopulator;
+
+import java.time.LocalDateTime;
 
 
 @ContextConfiguration({
@@ -14,7 +18,7 @@ import ru.javawebinar.topjava.util.DbPopulator;
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserMealServiceImplTest {
+public class UserMealServicelTest {
 
     @Autowired
     protected UserMealService service;
@@ -59,9 +63,11 @@ public class UserMealServiceImplTest {
 
     @Test
     public void testSave() throws Exception {
-       /* MealTestData.TestMeal tm = new MealTestData.TestMeal(LocalDateTime.now(), "креветка", 1000);
+        //MealTestData.MEAL1 =
+
+        MealTestData.TestMeal tm = new MealTestData.TestMeal(LocalDateTime.now(), "креветка", 1000);
         UserMeal created = service.save(tm.asUserMeal(), 0);
-        tm.setId(created.getId());*/
+        tm.setId(created.getId());
         //MATCHER.assertListEquals(Arrays.asList(ADMIN, tm, USER), service.getAll());
     }
 }
