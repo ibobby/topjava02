@@ -3,8 +3,8 @@ package ru.javawebinar.topjava;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.UserMeal;
+
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -18,11 +18,11 @@ public class MealTestData {
 
     public static final int MEAL1_ID = BaseEntity.START_SEQ + 2;
 
-    public static final UserMeal MEAL1 = new UserMeal(MEAL1_ID, LocalDateTime.of(2015, 1, 6, 9, 0), "омар", 1000);
-    public static final UserMeal MEAL2 = new UserMeal(MEAL1_ID + 1, LocalDateTime.of(2015, 1, 6, 9, 0), "", 500);
+    public static final UserMeal MEAL1 = new UserMeal(MEAL1_ID + 1, LocalDateTime.of(2015, 1, 6, 0, 0), "омар", 1000);
+    public static final UserMeal MEAL2 = new UserMeal(MEAL1_ID, LocalDateTime.of(2015, 1, 6, 0, 0), "анчоус", 500);
 
     public static UserMeal getCreated() {
-        return new UserMeal(null, LocalDateTime.of(2015, 1, 8, 18, 0), "created meal", 1200);
+        return new UserMeal(null, LocalDateTime.of(2015, 1, 8, 0, 0), "created meal", 1200);
     }
 
     public static UserMeal getUpdated() {

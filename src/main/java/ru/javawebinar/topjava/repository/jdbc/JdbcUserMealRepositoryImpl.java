@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -85,13 +84,13 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     @Override
     public List<UserMeal> getAll(int userId) {
         return jdbcTemplate.query(
-                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=?",
+                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=? ORDER BY datetime DESC",
                 ROW_MAPPER, userId);
     }
 
     @Override
     public void deleteAll(int userId) {
-        jdbcTemplate.update("DELETE FROM meals WHERE user_id=? ORDER BY datetime DESC", userId);
+        jdbcTemplate.update("DELETE FROM meals WHERE user_id=? ORDER BY datetime", userId);
     }
 
     @Override
