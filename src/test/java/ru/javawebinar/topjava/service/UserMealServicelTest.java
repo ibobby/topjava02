@@ -7,10 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.MealTestData;
+import ru.javawebinar.topjava.matcher.ModelMatcher;
+import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.DbPopulator;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+
+import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.model.BaseEntity.*;
 
 
 @ContextConfiguration({
@@ -63,11 +69,11 @@ public class UserMealServicelTest {
 
     @Test
     public void testSave() throws Exception {
-        //MealTestData.MEAL1 =
 
-        MealTestData.TestMeal tm = new MealTestData.TestMeal(LocalDateTime.now(), "креветка", 1000);
-        UserMeal created = service.save(tm.asUserMeal(), 0);
-        tm.setId(created.getId());
-        //MATCHER.assertListEquals(Arrays.asList(ADMIN, tm, USER), service.getAll());
+        UserMeal created = getCreated();
+        service.save(created, START_SEQ);
+        MATCHER.assertListEquals(Arrays.asList(created, MEAL2, MEAL1), service.getAll(START_SEQ));
+
+
     }
 }

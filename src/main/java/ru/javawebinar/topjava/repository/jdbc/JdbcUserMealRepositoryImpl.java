@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository.jdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -11,6 +12,9 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +26,12 @@ import java.util.List;
 @Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
-    private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
+    private static final RowMapper<UserMeal> ROW_MAPPER = new RowMapper<UserMeal>() {
+        @Override
+        public UserMeal mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new UserMeal(rs.getInt("id"), rs.getTimestamp("dateTime").toLocalDateTime(), rs.getString("description"), rs.getInt("calories"));
+        }
+    };
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -46,15 +55,17 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
                 .addValue("user_id", userId)
                 .addValue("description", userMeal.getDescription())
                 .addValue("calories", userMeal.getCalories())
-                .addValue("dateTime", userMeal.getDateTime());
+                .addValue("dateTime", Timestamp.valueOf(userMeal.getDateTime()));
 
         if (userMeal.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(map);
             userMeal.setId(newKey.intValue());
         } else {
-            namedParameterJdbcTemplate.update(
+            if (namedParameterJdbcTemplate.update(
                     "UPDATE meals SET description=:description, calories=:calories, dateTime=:dateTime " +
-                            "WHERE user_id=:user_id AND id=:id", map);
+                            "WHERE user_id=:user_id AND id=:id", map) == 0) {
+                return null;
+            }
         }
         return userMeal;
     }
@@ -80,7 +91,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public void deleteAll(int userId) {
-        jdbcTemplate.update("DELETE FROM meals WHERE user_id=?", userId);
+        jdbcTemplate.update("DELETE FROM meals WHERE user_id=? ORDER BY datetime DESC", userId);
     }
 
     @Override
