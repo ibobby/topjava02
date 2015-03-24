@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,7 @@ import ru.javawebinar.topjava.util.DbPopulator;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.model.BaseEntity.*;
@@ -39,27 +41,24 @@ public class UserMealServicelTest {
 
     @Test
     public void testGet() throws Exception {
-
+        UserMeal actual = service.get(MEAL1_ID, START_SEQ);
+        MATCHER.assertEquals(MEAL2, actual);
     }
 
     @Test
     public void testDelete() throws Exception {
-
+        service.delete(MEAL1_ID, START_SEQ);
+        MATCHER.assertListEquals(Arrays.asList(MEAL1), service.getAll(START_SEQ));
     }
 
     @Test
     public void testGetBetween() throws Exception {
-
+        MATCHER.assertListEquals(Arrays.asList(MEAL2, MEAL1), service.getBetween(LocalDateTime.of(2015, 1, 1, 0, 0), LocalDateTime.of(2015, 7, 1, 0, 0), START_SEQ));
     }
 
     @Test
     public void testGetAll() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteAll() throws Exception {
-
+        MATCHER.assertListEquals(Arrays.asList(MEAL2, MEAL1), service.getAll(START_SEQ));
     }
 
     @Test
@@ -73,7 +72,11 @@ public class UserMealServicelTest {
         UserMeal created = getCreated();
         service.save(created, START_SEQ);
         MATCHER.assertListEquals(Arrays.asList(created, MEAL2, MEAL1), service.getAll(START_SEQ));
+    }
 
-
+    @Test
+    public void testDeleteAll() throws Exception {
+        service.deleteAll(START_SEQ);
+        Assert.assertEquals(0, service.getAll(START_SEQ).size());
     }
 }

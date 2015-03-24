@@ -90,13 +90,13 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public void deleteAll(int userId) {
-        jdbcTemplate.update("DELETE FROM meals WHERE user_id=? ORDER BY datetime", userId);
+        jdbcTemplate.update("DELETE FROM meals WHERE user_id=?", userId);
     }
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return jdbcTemplate.query(
-                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=? AND dateTime BETWEEN ? AND ?",
-                ROW_MAPPER, userId, startDate, endDate);
+                "SELECT id, user_id, description, calories, dateTime FROM meals WHERE user_id=? AND dateTime >= ? AND dateTime < ?",
+                ROW_MAPPER, userId, Timestamp.valueOf(startDate), Timestamp.valueOf(endDate));
     }
 }
