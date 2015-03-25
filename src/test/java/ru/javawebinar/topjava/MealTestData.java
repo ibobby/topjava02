@@ -26,8 +26,8 @@ public class MealTestData {
     }
 
     public static UserMeal getUpdated() {
-        UserMeal updated = new UserMeal(MEAL1);
-        updated.setDescription("updated омар");
+        UserMeal updated = new UserMeal(MEAL2);
+        updated.setDescription("updated агчоус");
         return updated;
     }
 

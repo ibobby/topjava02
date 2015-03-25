@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.DbPopulator;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -63,7 +64,9 @@ public class UserMealServicelTest {
 
     @Test
     public void testUpdate() throws Exception {
-
+        UserMeal update = getUpdated();
+        service.update(update, START_SEQ);
+        MATCHER.assertEquals(update, service.get(MEAL1_ID, START_SEQ));
     }
 
     @Test
@@ -78,5 +81,10 @@ public class UserMealServicelTest {
     public void testDeleteAll() throws Exception {
         service.deleteAll(START_SEQ);
         Assert.assertEquals(0, service.getAll(START_SEQ).size());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testDeleteNotFound() throws Exception {
+        service.delete(1, START_SEQ);
     }
 }
