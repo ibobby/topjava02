@@ -32,12 +32,6 @@ public class MealTestData {
         return updated;
     }
 
-    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(
-            new Function<UserMeal, String>() {
-                @Override
-                public String apply(UserMeal meal) {
-                    return meal.toString();
-                }
-            });
+    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(UserMeal::toString);
 
 }

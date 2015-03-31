@@ -72,11 +72,6 @@ public class UserTestData {
     }
 
     public static final ModelMatcher<User, TestUser> MATCHER = new ModelMatcher<>(
-            new Function<User, TestUser>() {
-                @Override
-                public TestUser apply(User u) {
-                    return ((u instanceof TestUser) ? (TestUser) u : new TestUser(u));
-                }
-            });
+            u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)));
 
 }
